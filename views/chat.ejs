@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Civic Desk</title>
+    <meta name="description" content="Campaign office information desk">
+    <style>
+      /* Reset and base styles */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      body {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        /* Prevent iOS bounce scroll */
+        overscroll-behavior: none;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      /* Hide scrollbar but allow scrolling */
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      /* Typing animation */
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="app"
+      style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%"
+    >
+      <!-- Chat Interface -->
+      <div
+        id="chat-container"
+        style="
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          display: none;
+          flex-direction: column;
+          background: #f3f4f6;
+          overflow: hidden;
+        "
+      >
+        <!-- Header -->
+        <div
+          id="chat-header"
+          style="
+            height: calc(64px + env(safe-area-inset-top, 0px));
+            min-height: calc(64px + env(safe-area-inset-top, 0px));
+            padding-top: env(safe-area-inset-top, 0px);
+            background: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            padding-left: 16px;
+            padding-right: 16px;
+            gap: 12px;
+            flex-shrink: 0;
+          "
+        >
+          <img
+            src="/desk.svg"
+            alt="Civic Desk"
+            style="width: 44px; height: 44px; border-radius: 9999px; object-fit: cover"
+          />
+          <div>
+            <div style="font-weight: 600; font-size: 16px; color: #1f2937">Civic Desk</div>
+            <div style="font-size: 12px; color: #22c55e">Online</div>
+          </div>
+        </div>
+
+        <!-- Messages Area -->
+        <div
+          id="messages-area"
+          class="scrollbar-hide"
+          style="
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+          "
+        >
+          <!-- Messages will be inserted here by JavaScript -->
+        </div>
+
+        <!-- Input Area -->
+        <div
+          id="input-area"
+          style="
+            padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 8px)) 12px;
+            background: #f3f4f6;
+            border-top: 1px solid #e5e7eb;
+            flex-shrink: 0;
+          "
+        >
+          <div
+            style="
+              display: flex;
+              align-items: flex-end;
+              gap: 8px;
+              background: white;
+              border-radius: 24px;
+              border: 1px solid #d1d5db;
+              padding: 8px 16px;
+              box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            "
+          >
+            <textarea
+              id="message-input"
+              placeholder="Write a message…"
+              rows="1"
+              style="
+                flex: 1;
+                border: none;
+                outline: none;
+                resize: none;
+                font-size: 16px;
+                line-height: 24px;
+                max-height: 120px;
+                background: transparent;
+                font-family: inherit;
+              "
+            ></textarea>
+            <button
+              id="send-button" aria-label="Send message"
+              style="
+                width: 36px;
+                height: 36px;
+                border-radius: 9999px;
+                border: none;
+                background: #d1d5db;
+                cursor: default;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                transition: background-color 0.2s;
+              "
+              disabled
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="welcome" hidden><%= welcomeMessage %></div>
+    <script src="/js/chat-client.js"></script>
+  </body>
+</html>

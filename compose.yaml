@@ -1,0 +1,33 @@
+services:
+  bot:
+    build: .
+    ports:
+      - "127.0.0.1:${CHAT_PORT:-18790}:3000"
+    environment:
+      MONGODB_URI: mongodb://database:27017/civic_desk
+      REPLY_MODE: ${REPLY_MODE:-local}
+      GEMINI_MODEL: ${GEMINI_MODEL:-}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      WHATSAPP_ENABLED: ${WHATSAPP_ENABLED:-false}
+      WHATSAPP_API_VERSION: ${WHATSAPP_API_VERSION:-v21.0}
+      WHATSAPP_PHONE_NUMBER_ID: ${WHATSAPP_PHONE_NUMBER_ID:-}
+      WHATSAPP_APP_SECRET: ${WHATSAPP_APP_SECRET:-}
+      WHATSAPP_ACCESS_TOKEN: ${WHATSAPP_ACCESS_TOKEN:-}
+      WHATSAPP_VERIFY_TOKEN: ${WHATSAPP_VERIFY_TOKEN:-}
+      TELEGRAM_ENABLED: ${TELEGRAM_ENABLED:-false}
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:-}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+    depends_on:
+      database:
+        condition: service_healthy
+  database:
+    image: mongo:7.0
+    volumes:
+      - conversations:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok || quit(1)"]
+      interval: 4s
+      timeout: 5s
+      retries: 25
+volumes:
+  conversations:
