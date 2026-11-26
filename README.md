@@ -6,7 +6,7 @@ A political campaign’s information desk for visitors on the web, WhatsApp and 
 
 ## Try the chat
 
-With Docker Compose installed and access to this private repository:
+With Docker Compose installed, run:
 
 ```sh
 git clone https://github.com/Dror-Bengal/civic-desk-chatbot.git
@@ -49,3 +49,7 @@ Edit [the office brief](config/brief.json) to replace the fictional details. The
 ## Source
 
 [Web interface](views/chat.ejs) · [Browser client](public/js/chat-client.js) · [WhatsApp and Telegram transports](channels/providers.js) · [Shared conversation pipeline](core/orchestrator.js) · [Reply providers](core/llmCore.js)
+
+## License
+
+Nayto’s code is distributed under the [MIT License](LICENSE). Third-party software and media retain their respective terms.
